@@ -68,5 +68,11 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "c8": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
   }
 }
