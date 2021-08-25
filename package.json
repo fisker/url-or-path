@@ -1,0 +1,72 @@
+{
+  "name": "url-or-path",
+  "version": "0.0.0",
+  "description": "Convert between file URL and path.",
+  "homepage": "https://github.com/fisker/url-or-path#readme",
+  "bugs": {
+    "url": "https://github.com/fisker/url-or-path/issues"
+  },
+  "repository": "fisker/url-or-path",
+  "funding": "https://github.com/fisker/url-or-path?sponsor=1",
+  "license": "MIT",
+  "author": {
+    "name": "fisker Cheung",
+    "email": "lionkay@gmail.com",
+    "url": "https://www.fiskercheung.com/"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "exports": "./index.js",
+  "files": [],
+  "scripts": {
+    "clean": "run-p clean:*",
+    "clean:dist": "del-cli dist",
+    "dist": "run-p dist:*",
+    "dist:npm": "np --yolo --no-yarn",
+    "format": "run-p format:*",
+    "format:eslint": "yarn lint:eslint --fix",
+    "format:markdown": "yarn lint:markdown --fix",
+    "format:package-json": "sort-package-json \"package.json\" \"packages/*/package.json\"",
+    "format:prettier": "yarn lint:prettier --write",
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint \"**/*.{js,mjs,cjs,vue}\"",
+    "lint:markdown": "markdownlint \"**/*.md\" --ignore \"**/node_modules/**\"",
+    "lint:package-json": "yarn run format:package-json --check",
+    "lint:prettier": "prettier \"**/*.{css,html,js,cjs,mjs,json,less,md,scss,ts,vue,yaml,yml}\" --check",
+    "test": "ava",
+    "test-coverage": "c8 ava",
+    "release": "run-s format test dist"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "ava": {
+    "verbose": true
+  },
+  "devDependencies": {
+    "@commitlint/cli": "13.1.0",
+    "@fisker/commitlint-config": "1.3.6",
+    "@fisker/eslint-config": "7.2.0",
+    "@fisker/eslint-config-ava": "2.0.2",
+    "@fisker/husky-config": "4.1.0",
+    "@fisker/lint-staged-config": "3.1.0",
+    "@fisker/prettier-config": "4.1.1",
+    "ava": "3.15.0",
+    "c8": "7.8.0",
+    "cz-conventional-changelog": "3.3.0",
+    "del-cli": "4.0.1",
+    "eslint": "7.32.0",
+    "husky": "7.0.2",
+    "lint-staged": "11.1.2",
+    "markdownlint-cli": "0.28.1",
+    "npm-run-all": "4.1.5",
+    "prettier": "2.3.2",
+    "sort-package-json": "1.50.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
