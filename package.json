@@ -17,7 +17,9 @@
   "sideEffects": false,
   "type": "module",
   "exports": "./index.js",
-  "files": [],
+  "files": [
+    "./index.js"
+  ],
   "scripts": {
     "clean": "run-p clean:*",
     "clean:dist": "del-cli dist",
