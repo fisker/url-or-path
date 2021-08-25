@@ -18,7 +18,7 @@
   "type": "module",
   "exports": "./index.js",
   "files": [
-    "./index.js"
+    "index.js"
   ],
   "scripts": {
     "clean": "run-p clean:*",
