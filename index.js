@@ -3,7 +3,23 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 const NONE_FILE_URL_ERROR_MESSAGE = 'Only `file:` URLs are supported.'
 const FILE_PATH_INVALID_ERROR_MESSAGE = 'File path should be a string or URL.'
 
-function verify(url) {
+const isUrl = (value) => {
+  try {
+    return new URL(value).href === String(value)
+  } catch {
+    return false
+  }
+}
+
+function toUrl(urlOrPath) {
+  let url
+
+  if (isUrl(urlOrPath)) {
+    url = urlOrPath instanceof URL ? urlOrPath : new URL(urlOrPath)
+  } else if (typeof urlOrPath === 'string') {
+    url = pathToFileURL(urlOrPath)
+  }
+
   if (!(url instanceof URL)) {
     throw new TypeError(FILE_PATH_INVALID_ERROR_MESSAGE)
   }
@@ -12,34 +28,11 @@ function verify(url) {
     throw new TypeError(NONE_FILE_URL_ERROR_MESSAGE)
   }
 
-  return true
-}
-
-function toUrlObject(urlOrPath) {
-  if (typeof urlOrPath === 'string') {
-    if (urlOrPath.startsWith('file:')) {
-      try {
-        return new URL(urlOrPath)
-      } catch {}
-    }
-
-    return pathToFileURL(urlOrPath)
-  }
-
-  return urlOrPath
+  return url
 }
 
 function toPath(urlOrPath) {
-  const url = toUrlObject(urlOrPath)
-  verify(url)
-
-  return fileURLToPath(url)
-}
-
-function toUrl(urlOrPath) {
-  const url = toUrlObject(urlOrPath)
-  verify(url)
-  return url
+  return fileURLToPath(toUrl(urlOrPath))
 }
 
 export {toUrl, toUrl as toURL, toPath}
