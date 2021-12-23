@@ -31,6 +31,10 @@ test('Should reject invalid input', (t) => {
     instanceOf: TypeError,
     message: 'Only `file:` URLs are supported.',
   })
+  t.throws(() => toPath('https://example.com/'), {
+    instanceOf: TypeError,
+    message: 'Only `file:` URLs are supported.',
+  })
   t.is(toPath('https://example.com'), path.join(dirname, 'https://example.com'))
 
   t.throws(() => toUrl(100), {
@@ -42,6 +46,10 @@ test('Should reject invalid input', (t) => {
     message: 'File path should be a string or URL.',
   })
   t.throws(() => toUrl(new URL('https://example.com')), {
+    instanceOf: TypeError,
+    message: 'Only `file:` URLs are supported.',
+  })
+  t.throws(() => toUrl('https://example.com/'), {
     instanceOf: TypeError,
     message: 'Only `file:` URLs are supported.',
   })
