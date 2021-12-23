@@ -1,15 +1,20 @@
 import url from 'node:url'
+import path from 'node:path'
 import test from 'ava'
 import {toUrl, toPath} from './index.js'
 
 const fileUrl = new URL(import.meta.url)
+const fileUrlString = import.meta.url
 const filePath = url.fileURLToPath(fileUrl)
+const dirname = path.dirname(filePath)
 
-test('Should accept both URL and path string', (t) => {
+test('Should accept both URL, url and path string', (t) => {
   t.is(toPath(filePath), filePath)
   t.is(toPath(fileUrl), filePath)
+  t.is(toPath(fileUrlString), filePath)
 
   t.is(toUrl(fileUrl), fileUrl)
+  t.deepEqual(toUrl(fileUrlString), fileUrl)
   t.deepEqual(toUrl(filePath), fileUrl)
 })
 
@@ -26,6 +31,8 @@ test('Should reject invalid input', (t) => {
     instanceOf: TypeError,
     message: 'Only `file:` URLs are supported.',
   })
+  t.is(toPath('https://example.com'), path.join(dirname, 'https://example.com'))
+
   t.throws(() => toUrl(100), {
     instanceOf: TypeError,
     message: 'File path should be a string or URL.',
@@ -38,4 +45,8 @@ test('Should reject invalid input', (t) => {
     instanceOf: TypeError,
     message: 'Only `file:` URLs are supported.',
   })
+  t.deepEqual(
+    toUrl('https://example.com'),
+    url.pathToFileURL('https://example.com'),
+  )
 })
