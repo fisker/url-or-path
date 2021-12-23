@@ -5,10 +5,11 @@ const FILE_PATH_INVALID_ERROR_MESSAGE = 'File path should be a string or URL.'
 
 const isUrl = (value) => {
   try {
-    return new URL(value).href === String(value)
-  } catch {
-    return false
-  }
+    const {protocol} = new URL(value)
+    return !/^[a-z]:$/.test(protocol)
+  } catch {}
+
+  return false
 }
 
 function toUrl(urlOrPath) {

@@ -6,7 +6,6 @@ import {toUrl, toPath} from './index.js'
 const fileUrl = new URL(import.meta.url)
 const fileUrlString = import.meta.url
 const filePath = url.fileURLToPath(fileUrl)
-const dirname = path.dirname(filePath)
 
 test('Should accept both URL, url and path string', (t) => {
   t.is(toPath(filePath), filePath)
@@ -35,7 +34,10 @@ test('Should reject invalid input', (t) => {
     instanceOf: TypeError,
     message: 'Only `file:` URLs are supported.',
   })
-  t.is(toPath('https://example.com'), path.join(dirname, 'https://example.com'))
+  t.throws(() => toPath('https://example.com'), {
+    instanceOf: TypeError,
+    message: 'Only `file:` URLs are supported.',
+  })
 
   t.throws(() => toUrl(100), {
     instanceOf: TypeError,
@@ -53,8 +55,8 @@ test('Should reject invalid input', (t) => {
     instanceOf: TypeError,
     message: 'Only `file:` URLs are supported.',
   })
-  t.deepEqual(
-    toUrl('https://example.com'),
-    url.pathToFileURL('https://example.com'),
-  )
+  t.throws(() => toUrl('https://example.com'), {
+    instanceOf: TypeError,
+    message: 'Only `file:` URLs are supported.',
+  })
 })
