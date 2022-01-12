@@ -29,7 +29,7 @@ test('Should reject invalid input', (t) => {
   })
   t.throws(() => toPath(new URL('https://example.com')), {
     instanceOf: TypeError,
-    message: 'Only `file:` URLs are supported.',
+    message: "Only 'file:' URLs are supported.",
   })
 
   for (const url of ['https://example.com/', 'https://example.com']) {
@@ -46,7 +46,7 @@ test('Should reject invalid input', (t) => {
   })
   t.throws(() => toUrl(new URL('https://example.com')), {
     instanceOf: TypeError,
-    message: 'Only `file:` URLs are supported.',
+    message: "Only 'file:' URLs are supported.",
   })
 
   for (const url of ['https://example.com/', 'https://example.com']) {
