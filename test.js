@@ -7,14 +7,15 @@ const fileUrl = new URL(import.meta.url)
 const fileUrlString = import.meta.url
 const filePath = url.fileURLToPath(fileUrl)
 
+const inputs = [fileUrl, fileUrlString, filePath]
+
 test('Should accept both URL, url and path string', (t) => {
-  t.is(toPath(filePath), filePath)
-  t.is(toPath(fileUrl), filePath)
-  t.is(toPath(fileUrlString), filePath)
+  for (const urlOrPath of inputs) {
+    t.is(toPath(urlOrPath), filePath)
+    t.deepEqual(toUrl(urlOrPath), fileUrl)
+  }
 
   t.is(toUrl(fileUrl), fileUrl)
-  t.deepEqual(toUrl(fileUrlString), fileUrl)
-  t.deepEqual(toUrl(filePath), fileUrl)
 })
 
 test('Should reject invalid input', (t) => {
@@ -30,14 +31,10 @@ test('Should reject invalid input', (t) => {
     instanceOf: TypeError,
     message: 'Only `file:` URLs are supported.',
   })
-  t.throws(() => toPath('https://example.com/'), {
-    instanceOf: TypeError,
-    message: 'Only `file:` URLs are supported.',
-  })
-  t.throws(() => toPath('https://example.com'), {
-    instanceOf: TypeError,
-    message: 'Only `file:` URLs are supported.',
-  })
+
+  for (const url of ['https://example.com/', 'https://example.com']) {
+    t.is(toPath(url), url)
+  }
 
   t.throws(() => toUrl(100), {
     instanceOf: TypeError,
@@ -51,12 +48,8 @@ test('Should reject invalid input', (t) => {
     instanceOf: TypeError,
     message: 'Only `file:` URLs are supported.',
   })
-  t.throws(() => toUrl('https://example.com/'), {
-    instanceOf: TypeError,
-    message: 'Only `file:` URLs are supported.',
-  })
-  t.throws(() => toUrl('https://example.com'), {
-    instanceOf: TypeError,
-    message: 'Only `file:` URLs are supported.',
-  })
+
+  for (const url of ['https://example.com/', 'https://example.com']) {
+    t.true(toUrl(url) instanceof URL)
+  }
 })
