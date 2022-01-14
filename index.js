@@ -5,7 +5,7 @@ const NONE_FILE_URL_ERROR_MESSAGE = "Only 'file:' URLs are supported."
 const FILE_PROTOCOL = 'file:'
 const isString = (value) => typeof value === 'string'
 const isStringStartsWithFileProtocol = (string) =>
-  string.startsWith(FILE_PROTOCOL)
+  string.startsWith(`${FILE_PROTOCOL}//`)
 
 function assertFileUrl(url) {
   if (!(url instanceof URL)) {
