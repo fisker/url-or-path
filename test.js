@@ -1,5 +1,4 @@
 import url from 'node:url'
-import path from 'node:path'
 import test from 'ava'
 import {toUrl, toPath} from './index.js'
 

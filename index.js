@@ -32,7 +32,7 @@ function toUrl(urlOrPath) {
 function toPath(urlOrPath) {
   if (isString(urlOrPath)) {
     return isStringStartsWithFileProtocol(urlOrPath)
-      ? fileURLToPath(new URL(urlOrPath))
+      ? fileURLToPath(urlOrPath)
       : urlOrPath
   }
 
