@@ -47,3 +47,9 @@ Returns a [`URL`](https://nodejs.org/dist/latest-v16.x/docs/api/url.html#url_cla
 Type: `string | URL`
 
 Returns path string of given URL or path string.
+
+### `toDirectory(urlOrPath)`
+
+Type: `string | URL`
+
+Same as `toUrl`, but the result URL always ends with `/`.
