@@ -17,6 +17,11 @@ function assertFileUrl(url) {
   }
 }
 
+const addSlash = (url) =>
+  url.href.endsWith('/') ? url : new URL(`${url.href}/`)
+
+const toDirectory = (urlOrPath) => addSlash(toUrl(urlOrPath))
+
 function toUrl(urlOrPath) {
   if (isString(urlOrPath)) {
     return isStringStartsWithFileProtocol(urlOrPath)
@@ -41,4 +46,4 @@ function toPath(urlOrPath) {
   return fileURLToPath(urlOrPath)
 }
 
-export {toUrl, toUrl as toURL, toPath}
+export {toDirectory, toUrl, toUrl as toURL, toPath}
