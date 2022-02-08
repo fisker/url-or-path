@@ -61,7 +61,6 @@ test('toDirectory()', (t) => {
   const directories = [
     'foo',
     'foo/',
-    'foo\\',
     'foo///',
     path.resolve('foo'),
     ...[
@@ -71,6 +70,10 @@ test('toDirectory()', (t) => {
       url.pathToFileURL(path.resolve('foo')),
     ].flatMap((url) => [url, url.href]),
   ]
+
+  if (path.sep === '\\') {
+    directories.push('foo\\')
+  }
 
   for (const directory of directories) {
     t.is(
