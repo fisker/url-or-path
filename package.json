@@ -1,6 +1,6 @@
 {
   "name": "url-or-path",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Convert between file URL and path.",
   "homepage": "https://github.com/fisker/url-or-path#readme",
   "bugs": {
