@@ -20,37 +20,25 @@ test('Should accept both URL, url and path string', (t) => {
 })
 
 test('Should reject invalid input', (t) => {
-  t.throws(() => toPath(100), {
-    instanceOf: TypeError,
-    message: 'File path should be a string or URL.',
-  })
-  t.throws(() => toPath(new URLSearchParams()), {
-    instanceOf: TypeError,
-    message: 'File path should be a string or URL.',
-  })
-  t.throws(() => toPath(new URL('https://example.com')), {
-    instanceOf: TypeError,
-    message: "Only 'file:' URLs are supported.",
-  })
+  t.throws(() => toPath(new URL('https://example.com')))
 
-  for (const url of ['https://example.com/', 'https://example.com']) {
+  for (const url of [
+    100,
+    new URLSearchParams(),
+    'https://example.com/',
+    'https://example.com',
+  ]) {
     t.is(toPath(url), url)
   }
 
-  t.throws(() => toUrl(100), {
-    instanceOf: TypeError,
-    message: 'File path should be a string or URL.',
-  })
-  t.throws(() => toUrl(new URLSearchParams()), {
-    instanceOf: TypeError,
-    message: 'File path should be a string or URL.',
-  })
-  t.throws(() => toUrl(new URL('https://example.com')), {
-    instanceOf: TypeError,
-    message: "Only 'file:' URLs are supported.",
-  })
+  t.throws(() => toUrl(100))
+  t.throws(() => toUrl(new URLSearchParams()))
 
-  for (const url of ['https://example.com/', 'https://example.com']) {
+  for (const url of [
+    new URL('https://example.com'),
+    'https://example.com/',
+    'https://example.com',
+  ]) {
     t.true(toUrl(url) instanceof URL)
   }
 })

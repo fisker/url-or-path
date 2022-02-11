@@ -1,49 +1,29 @@
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
-const FILE_PATH_INVALID_ERROR_MESSAGE = 'File path should be a string or URL.'
-const NONE_FILE_URL_ERROR_MESSAGE = "Only 'file:' URLs are supported."
-const FILE_PROTOCOL = 'file:'
-const isString = (value) => typeof value === 'string'
-const isStringStartsWithFileProtocol = (string) =>
-  string.startsWith(`${FILE_PROTOCOL}//`)
+const isUrlInstance = (urlOrPath) => urlOrPath instanceof URL
+const isUrlString = (urlOrPath) =>
+  typeof urlOrPath === 'string' && urlOrPath.startsWith('file://')
 
-function assertFileUrl(url) {
-  if (!(url instanceof URL)) {
-    throw new TypeError(FILE_PATH_INVALID_ERROR_MESSAGE)
+const isUrl = (urlOrPath) => isUrlInstance(urlOrPath) || isUrlString(urlOrPath)
+
+const toUrl = (urlOrPath) => {
+  if (isUrlInstance(urlOrPath)) {
+    return urlOrPath
   }
 
-  if (url.protocol !== FILE_PROTOCOL) {
-    throw new TypeError(NONE_FILE_URL_ERROR_MESSAGE)
+  if (isUrlString(urlOrPath)) {
+    return new URL(urlOrPath)
   }
+
+  return pathToFileURL(urlOrPath)
 }
+
+const toPath = (urlOrPath) =>
+  isUrl(urlOrPath) ? fileURLToPath(urlOrPath) : urlOrPath
 
 const addSlash = (url) =>
   url.href.endsWith('/') ? url : new URL(`${url.href}/`)
 
 const toDirectory = (urlOrPath) => addSlash(toUrl(urlOrPath))
-
-function toUrl(urlOrPath) {
-  if (isString(urlOrPath)) {
-    return isStringStartsWithFileProtocol(urlOrPath)
-      ? new URL(urlOrPath)
-      : pathToFileURL(urlOrPath)
-  }
-
-  assertFileUrl(urlOrPath)
-
-  return urlOrPath
-}
-
-function toPath(urlOrPath) {
-  if (isString(urlOrPath)) {
-    return isStringStartsWithFileProtocol(urlOrPath)
-      ? fileURLToPath(urlOrPath)
-      : urlOrPath
-  }
-
-  assertFileUrl(urlOrPath)
-
-  return fileURLToPath(urlOrPath)
-}
 
 export {toDirectory, toUrl, toUrl as toURL, toPath}
