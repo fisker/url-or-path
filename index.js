@@ -26,4 +26,12 @@ const addSlash = (url) =>
 
 const toDirectory = (urlOrPath) => addSlash(toUrl(urlOrPath))
 
-export {toDirectory, toUrl, toUrl as toURL, toPath}
+export {
+  isUrl,
+  isUrlInstance,
+  isUrlString,
+  toDirectory,
+  toUrl,
+  toUrl as toURL,
+  toPath,
+}

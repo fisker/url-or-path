@@ -2,7 +2,15 @@ import url from 'node:url'
 import path from 'node:path'
 import process from 'node:process'
 import test from 'ava'
-import {toUrl, toURL, toPath, toDirectory} from './index.js'
+import {
+  isUrl,
+  isUrlInstance,
+  isUrlString,
+  toUrl,
+  toURL,
+  toPath,
+  toDirectory,
+} from './index.js'
 
 const fileUrl = new URL(import.meta.url)
 const fileUrlString = import.meta.url
@@ -70,6 +78,23 @@ test('toDirectory()', (t) => {
       `Unexpected URL for '${directory}'`,
     )
   }
+})
+
+test('utils', (t) => {
+  t.is(isUrl(new URL('file://path/to/url')), true)
+  t.is(isUrl('file://path/to/url'), true)
+  t.is(isUrl(''), false)
+  t.is(isUrl(0), false)
+
+  t.is(isUrlInstance(new URL('file://path/to/url')), true)
+  t.is(isUrlInstance('file://path/to/url'), false)
+  t.is(isUrlInstance(''), false)
+  t.is(isUrlInstance(0), false)
+
+  t.is(isUrlString(new URL('file://path/to/url')), false)
+  t.is(isUrlString('file://path/to/url'), true)
+  t.is(isUrlString(''), false)
+  t.is(isUrlString(0), false)
 })
 
 test('exports', (t) => {

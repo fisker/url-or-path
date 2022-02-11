@@ -53,3 +53,15 @@ Returns path string of given URL or path string.
 Type: `string | URL`
 
 Same as `toUrl`, but the result URL always ends with `/`.
+
+### `isUrl(object)`
+
+Check if `object` is a `URL` instance of `file://` string.
+
+### `isUrlInstance(object)`
+
+Check if `object` is a `URL` instance.
+
+### `isUrlString(object)`
+
+Check if `object` is a `file://` string
