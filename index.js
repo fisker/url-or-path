@@ -1,11 +1,16 @@
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
-const isUrlInstance = (urlOrPath) => urlOrPath instanceof URL
-const isUrlString = (urlOrPath) =>
-  typeof urlOrPath === 'string' && urlOrPath.startsWith('file://')
+/** @typedef {URL | string} UrlOrPath */
 
+/** @type {(value: unknown) => value is URL} */
+const isUrlInstance = (value) => value instanceof URL
+/** @type {(value: unknown) => value is string} */
+const isUrlString = (value) =>
+  typeof value === 'string' && value.startsWith('file://')
+/** @type {(value: unknown) => value is UrlOrPath} */
 const isUrl = (urlOrPath) => isUrlInstance(urlOrPath) || isUrlString(urlOrPath)
 
+/** @type {(urlOrPath: UrlOrPath) => URL} */
 const toUrl = (urlOrPath) => {
   if (isUrlInstance(urlOrPath)) {
     return urlOrPath
@@ -18,20 +23,26 @@ const toUrl = (urlOrPath) => {
   return pathToFileURL(urlOrPath)
 }
 
+/** @type {(urlOrPath: UrlOrPath) => string} */
 const toPath = (urlOrPath) =>
   isUrl(urlOrPath) ? fileURLToPath(urlOrPath) : urlOrPath
 
+/** @type {(url: URL) => URL} */
 const addSlash = (url) =>
   url.href.endsWith('/') ? url : new URL(`${url.href}/`)
 
+/** @type {(urlOrPath: UrlOrPath) => URL} */
 const toDirectory = (urlOrPath) => addSlash(toUrl(urlOrPath))
 
 export {
   isUrl,
+  isUrl as isURL,
   isUrlInstance,
+  isUrlInstance as isURLInstance,
   isUrlString,
-  toDirectory,
+  isUrlString as isURLString,
   toUrl,
   toUrl as toURL,
   toPath,
+  toDirectory,
 }
