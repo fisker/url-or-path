@@ -2,15 +2,7 @@ import url from 'node:url'
 import path from 'node:path'
 import process from 'node:process'
 import test from 'ava'
-import {
-  isUrl,
-  isUrlInstance,
-  isUrlString,
-  toUrl,
-  toURL,
-  toPath,
-  toDirectory,
-} from './index.js'
+import * as urlOrPath from './index.js'
 
 const fileUrl = new URL(import.meta.url)
 const fileUrlString = import.meta.url
@@ -19,16 +11,16 @@ const filePath = url.fileURLToPath(fileUrl)
 const inputs = [fileUrl, fileUrlString, filePath]
 
 test('Should accept both URL, url and path string', (t) => {
-  for (const urlOrPath of inputs) {
-    t.is(toPath(urlOrPath), filePath)
-    t.deepEqual(toUrl(urlOrPath), fileUrl)
+  for (const value of inputs) {
+    t.is(urlOrPath.toPath(value), filePath)
+    t.deepEqual(urlOrPath.toUrl(value), fileUrl)
   }
 
-  t.is(toUrl(fileUrl), fileUrl)
+  t.is(urlOrPath.toUrl(fileUrl), fileUrl)
 })
 
 test('Should reject invalid input', (t) => {
-  t.throws(() => toPath(new URL('https://example.com')))
+  t.throws(() => urlOrPath.toPath(new URL('https://example.com')))
 
   for (const url of [
     100,
@@ -36,18 +28,18 @@ test('Should reject invalid input', (t) => {
     'https://example.com/',
     'https://example.com',
   ]) {
-    t.is(toPath(url), url)
+    t.is(urlOrPath.toPath(url), url)
   }
 
-  t.throws(() => toUrl(100))
-  t.throws(() => toUrl(new URLSearchParams()))
+  t.throws(() => urlOrPath.toUrl(100))
+  t.throws(() => urlOrPath.toUrl(new URLSearchParams()))
 
   for (const url of [
     new URL('https://example.com'),
     'https://example.com/',
     'https://example.com',
   ]) {
-    t.true(toUrl(url) instanceof URL)
+    t.true(urlOrPath.toUrl(url) instanceof URL)
   }
 })
 
@@ -73,7 +65,7 @@ test('toDirectory()', (t) => {
 
   for (const directory of directories) {
     t.is(
-      toDirectory(directory).href.slice(cwdLength),
+      urlOrPath.toDirectory(directory).href.slice(cwdLength),
       '/foo/',
       `Unexpected URL for '${directory}'`,
     )
@@ -81,22 +73,25 @@ test('toDirectory()', (t) => {
 })
 
 test('utils', (t) => {
-  t.is(isUrl(new URL('file://path/to/url')), true)
-  t.is(isUrl('file://path/to/url'), true)
-  t.is(isUrl(''), false)
-  t.is(isUrl(0), false)
+  t.is(urlOrPath.isUrl(new URL('file://path/to/url')), true)
+  t.is(urlOrPath.isUrl('file://path/to/url'), true)
+  t.is(urlOrPath.isUrl(''), false)
+  t.is(urlOrPath.isUrl(0), false)
 
-  t.is(isUrlInstance(new URL('file://path/to/url')), true)
-  t.is(isUrlInstance('file://path/to/url'), false)
-  t.is(isUrlInstance(''), false)
-  t.is(isUrlInstance(0), false)
+  t.is(urlOrPath.isUrlInstance(new URL('file://path/to/url')), true)
+  t.is(urlOrPath.isUrlInstance('file://path/to/url'), false)
+  t.is(urlOrPath.isUrlInstance(''), false)
+  t.is(urlOrPath.isUrlInstance(0), false)
 
-  t.is(isUrlString(new URL('file://path/to/url')), false)
-  t.is(isUrlString('file://path/to/url'), true)
-  t.is(isUrlString(''), false)
-  t.is(isUrlString(0), false)
+  t.is(urlOrPath.isUrlString(new URL('file://path/to/url')), false)
+  t.is(urlOrPath.isUrlString('file://path/to/url'), true)
+  t.is(urlOrPath.isUrlString(''), false)
+  t.is(urlOrPath.isUrlString(0), false)
 })
 
 test('exports', (t) => {
-  t.is(toURL, toUrl)
+  t.is(urlOrPath.isURL, urlOrPath.isUrl)
+  t.is(urlOrPath.isURLInstance, urlOrPath.isUrlInstance)
+  t.is(urlOrPath.isURLString, urlOrPath.isUrlString)
+  t.is(urlOrPath.toURL, urlOrPath.toUrl)
 })

@@ -5,7 +5,7 @@
 [![Npm Version][package_version_badge]][package_link]
 [![MIT License][license_badge]][license_link]
 
-[github_actions_badge]: https://img.shields.io/github/workflow/status/fisker/url-or-path/CI/main?style=flat-square
+[github_actions_badge]: https://img.shields.io/github/actions/workflow/status/fisker/url-or-path/continuous-integration.yml?barnach=main&style=flat-square
 [github_actions_link]: https://github.com/fisker/url-or-path/actions?query=branch%3Amain
 [coveralls_badge]: https://img.shields.io/coveralls/github/fisker/url-or-path/main?style=flat-square
 [coveralls_link]: https://coveralls.io/github/fisker/url-or-path?branch=main
@@ -54,14 +54,14 @@ Type: `string | URL`
 
 Same as `toUrl`, but the result URL always ends with `/`.
 
-### `isUrl(object)`
+### `isUrl(value)`(alias `isURL`)
 
-Check if `object` is a `URL` instance of `file://` string.
+Check if `value` is a `URL` instance or a string starts with `file://`.
 
-### `isUrlInstance(object)`
+### `isUrlInstance(value)`(alias `isURLInstance`)
 
-Check if `object` is a `URL` instance.
+Check if `value` is a `URL` instance.
 
-### `isUrlString(object)`
+### `isUrlString(value)`(alias `isURLString`)
 
-Check if `object` is a `file://` string
+Check if `value` is a string starts with `file://`.

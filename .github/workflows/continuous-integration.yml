@@ -18,6 +18,7 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node_version:
+          - "20"
           - "18"
           - "16"
           - "14"
@@ -30,10 +31,10 @@ jobs:
     # needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
 
@@ -41,7 +42,7 @@ jobs:
         run: yarn
 
       # - name: Download Artifact
-      #   uses: actions/download-artifact@v2
+      #   uses: actions/download-artifact@v4
       #   with:
       #     name: dist
       #     path: dist
@@ -73,10 +74,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
 
       - name: Install Dependencies
         run: yarn
@@ -89,10 +90,10 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout
-  #       uses: actions/checkout@v2
+  #       uses: actions/checkout@v4
 
   #     - name: Setup Node.js
-  #       uses: actions/setup-node@v2
+  #       uses: actions/setup-node@v4
 
   #     - name: Install Dependencies
   #       run: yarn
@@ -101,7 +102,7 @@ jobs:
   #       run: yarn build
 
   #     - name: Upload Artifact
-  #       uses: actions/upload-artifact@v2
+  #       uses: actions/upload-artifact@v4
   #       with:
   #         name: dist
   #         path: dist
