@@ -7,7 +7,7 @@ const isUrlInstance = (value) => value instanceof URL
 /** @type {(value: unknown) => value is string} */
 const isUrlString = (value) =>
   typeof value === 'string' && value.startsWith('file://')
-/** @type {(value: unknown) => value is UrlOrPath} */
+/** @type {(urlOrPath: unknown) => urlOrPath is UrlOrPath} */
 const isUrl = (urlOrPath) => isUrlInstance(urlOrPath) || isUrlString(urlOrPath)
 
 /** @type {(urlOrPath: UrlOrPath) => URL} */
