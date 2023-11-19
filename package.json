@@ -23,9 +23,9 @@
     "index.d.ts.map"
   ],
   "scripts": {
-    "build": "run-p build:*",
-    "build:types": "tsc",
-    "clean": "run-p clean:*",
+    "build": "run-p clean \"build:*\"",
+    "build:types": "tsc --emitDeclarationOnly --noEmit false",
+    "clean": "run-p \"clean:*\"",
     "clean:dist": "del-cli index.d.ts index.d.ts.map",
     "dist": "run-p dist:*",
     "dist:npm": "np --yolo --no-yarn",
@@ -40,7 +40,7 @@
     "lint:package-json": "yarn run format:package-json --check",
     "lint:prettier": "prettier \"**/*.{css,html,js,cjs,mjs,json,less,md,scss,ts,vue,yaml,yml}\" --check",
     "prepare": "husky install",
-    "release": "run-s format clean build test dist",
+    "release": "run-s format build test dist",
     "test": "ava",
     "test-coverage": "c8 ava"
   },
