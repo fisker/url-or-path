@@ -1,13 +1,20 @@
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
-/** @typedef {URL | string} UrlOrPath */
+const URL_STRING_PREFIX = 'file://'
+
+/**
+@typedef {typeof URL_STRING_PREFIX} UrlStringPrefix
+@typedef {`${UrlStringPrefix}${string}`} UrlString
+@typedef {URL | UrlString} UrlOrUrlString
+@typedef {URL | string} UrlOrPath
+*/
 
 /** @type {(value: unknown) => value is URL} */
 const isUrlInstance = (value) => value instanceof URL
-/** @type {(value: unknown) => value is string} */
+/** @type {(value: unknown) => value is UrlString} */
 const isUrlString = (value) =>
-  typeof value === 'string' && value.startsWith('file://')
-/** @type {(urlOrPath: unknown) => urlOrPath is UrlOrPath} */
+  typeof value === 'string' && value.startsWith(URL_STRING_PREFIX)
+/** @type {(urlOrPath: unknown) => urlOrPath is UrlOrUrlString} */
 const isUrl = (urlOrPath) => isUrlInstance(urlOrPath) || isUrlString(urlOrPath)
 
 /** @type {(urlOrPath: UrlOrPath) => URL} */

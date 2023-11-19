@@ -23,7 +23,7 @@
     "index.d.ts.map"
   ],
   "scripts": {
-    "build": "run-p clean \"build:*\"",
+    "build": "yarn clean && run-p \"build:*\"",
     "build:types": "tsc --emitDeclarationOnly --noEmit false",
     "clean": "run-p \"clean:*\"",
     "clean:dist": "del-cli index.d.ts index.d.ts.map",
@@ -41,8 +41,10 @@
     "lint:prettier": "prettier \"**/*.{css,html,js,cjs,mjs,json,less,md,scss,ts,vue,yaml,yml}\" --check",
     "prepare": "husky install",
     "release": "run-s format build test dist",
-    "test": "ava",
-    "test-coverage": "c8 ava"
+    "test": "run-p \"test:*\"",
+    "test-coverage": "c8 yarn test",
+    "test:js": "ava",
+    "test:types": "yarn build && tsd"
   },
   "ava": {
     "verbose": true
@@ -70,6 +72,7 @@
     "npm-run-all2": "6.1.1",
     "prettier": "3.1.0",
     "sort-package-json": "2.6.0",
+    "tsd": "0.29.0",
     "typescript": "5.2.2"
   },
   "publishConfig": {
