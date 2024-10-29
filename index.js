@@ -1,6 +1,6 @@
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
-const URL_STRING_PREFIX = 'file://'
+const URL_STRING_PREFIX = 'file:'
 
 /**
 @typedef {typeof URL_STRING_PREFIX} UrlStringPrefix

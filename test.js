@@ -73,18 +73,21 @@ test('toDirectory()', (t) => {
 })
 
 test('utils', (t) => {
-  t.is(urlOrPath.isUrl(new URL('file://path/to/url')), true)
-  t.is(urlOrPath.isUrl('file://path/to/url'), true)
+  t.is(urlOrPath.isUrl(new URL('file:///path/to/url')), true)
+  t.is(urlOrPath.isUrl('file:///path/to/url'), true)
+  t.is(urlOrPath.isUrl('file:/path/to/url'), true)
   t.is(urlOrPath.isUrl(''), false)
   t.is(urlOrPath.isUrl(0), false)
 
-  t.is(urlOrPath.isUrlInstance(new URL('file://path/to/url')), true)
-  t.is(urlOrPath.isUrlInstance('file://path/to/url'), false)
+  t.is(urlOrPath.isUrlInstance(new URL('file:///path/to/url')), true)
+  t.is(urlOrPath.isUrlInstance('file:///path/to/url'), false)
+  t.is(urlOrPath.isUrlInstance('file:/path/to/url'), false)
   t.is(urlOrPath.isUrlInstance(''), false)
   t.is(urlOrPath.isUrlInstance(0), false)
 
-  t.is(urlOrPath.isUrlString(new URL('file://path/to/url')), false)
-  t.is(urlOrPath.isUrlString('file://path/to/url'), true)
+  t.is(urlOrPath.isUrlString(new URL('file:///path/to/url')), false)
+  t.is(urlOrPath.isUrlString('file:///path/to/url'), true)
+  t.is(urlOrPath.isUrlString('file:/path/to/url'), true)
   t.is(urlOrPath.isUrlString(''), false)
   t.is(urlOrPath.isUrlString(0), false)
 })
