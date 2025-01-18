@@ -68,7 +68,7 @@
     "eslint": "8.54.0",
     "husky": "8.0.3",
     "lint-staged": "15.1.0",
-    "markdownlint-cli2": "0.10.0",
+    "markdownlint-cli2": "0.17.2",
     "npm-run-all2": "6.1.1",
     "prettier": "3.1.0",
     "sort-package-json": "2.6.0",
