@@ -70,7 +70,7 @@
     "lint-staged": "15.1.0",
     "markdownlint-cli2": "0.10.0",
     "npm-run-all2": "6.1.1",
-    "prettier": "3.1.0",
+    "prettier": "3.5.3",
     "sort-package-json": "2.6.0",
     "tsd": "0.29.0",
     "typescript": "5.2.2"
