@@ -27,7 +27,7 @@
     "clean": "run-p \"clean:*\"",
     "clean:dist": "del-cli dist",
     "dist": "run-p \"dist:*\"",
-    "dist:npm": "np --yolo --no-yarn",
+    "dist:npm": "release-it",
     "lint": "run-p --continue-on-error \"lint:*\"",
     "lint:eslint": "eslint .",
     "lint:markdown": "markdownlint-cli2",
