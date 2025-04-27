@@ -34,7 +34,7 @@
     "lint:package-json": "yarn run fix:package-json --check",
     "lint:prettier": "prettier . --check",
     "prepare": "husky install",
-    "release": "run-s format build test dist",
+    "release": "run-s fix build test dist",
     "test": "run-p \"test:*\"",
     "test-coverage": "c8 yarn test",
     "test:js": "ava",
