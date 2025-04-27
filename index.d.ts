@@ -13,15 +13,15 @@ export const isUrl: (urlOrPath: unknown) => urlOrPath is UrlOrUrlString
 /** @type {(value: unknown) => value is URL} */
 export const isUrlInstance: (value: unknown) => value is URL
 /** @type {(value: unknown) => value is UrlString} */
-export const isUrlString: (value: unknown) => value is `file:${string}`
-/** @type {(urlOrPath: UrlOrPath) => URL} */
-export const toUrl: (urlOrPath: UrlOrPath) => URL
-/** @type {(urlOrPath: UrlOrPath) => string} */
-export const toPath: (urlOrPath: UrlOrPath) => string
+export const isUrlString: (value: unknown) => value is UrlString
 /** @type {(urlOrPath: UrlOrPath) => string} */
 export const toAbsolutePath: (urlOrPath: UrlOrPath) => string
 /** @type {(urlOrPath: UrlOrPath) => URL} */
 export const toDirectory: (urlOrPath: UrlOrPath) => URL
+/** @type {(urlOrPath: UrlOrPath) => string} */
+export const toPath: (urlOrPath: UrlOrPath) => string
+/** @type {(urlOrPath: UrlOrPath) => URL} */
+export const toUrl: (urlOrPath: UrlOrPath) => URL
 declare const URL_STRING_PREFIX: 'file:'
 export {
   isUrl as isURL,
