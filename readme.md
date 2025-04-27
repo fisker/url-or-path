@@ -48,6 +48,12 @@ Type: `string | URL`
 
 Returns path string of given URL or path string.
 
+### `toAbsolute(urlOrPath)`
+
+Type: `string | URL`
+
+Returns absolute path string of given URL or path string.
+
 ### `toDirectory(urlOrPath)`
 
 Type: `string | URL`

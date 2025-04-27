@@ -1,4 +1,5 @@
-import {fileURLToPath, pathToFileURL} from 'node:url'
+import * as path from 'node:path'
+import * as url from 'node:url'
 
 const URL_STRING_PREFIX = 'file:'
 
@@ -27,12 +28,16 @@ const toUrl = (urlOrPath) => {
     return new URL(urlOrPath)
   }
 
-  return pathToFileURL(urlOrPath)
+  return url.pathToFileURL(urlOrPath)
 }
 
 /** @type {(urlOrPath: UrlOrPath) => string} */
 const toPath = (urlOrPath) =>
-  isUrl(urlOrPath) ? fileURLToPath(urlOrPath) : urlOrPath
+  isUrl(urlOrPath) ? url.fileURLToPath(urlOrPath) : urlOrPath
+
+/** @type {(urlOrPath: UrlOrPath) => string} */
+const toAbsolutePath = (urlOrPath) =>
+  path.resolve(isUrl(urlOrPath) ? url.fileURLToPath(urlOrPath) : urlOrPath)
 
 /** @type {(url: URL) => URL} */
 const addSlash = (url) =>
@@ -42,14 +47,15 @@ const addSlash = (url) =>
 const toDirectory = (urlOrPath) => addSlash(toUrl(urlOrPath))
 
 export {
-  isUrl,
   isUrl as isURL,
-  isUrlInstance,
+  isUrl,
   isUrlInstance as isURLInstance,
-  isUrlString,
+  isUrlInstance,
   isUrlString as isURLString,
-  toUrl,
-  toUrl as toURL,
-  toPath,
+  isUrlString,
+  toAbsolutePath,
   toDirectory,
+  toPath,
+  toUrl as toURL,
+  toUrl,
 }

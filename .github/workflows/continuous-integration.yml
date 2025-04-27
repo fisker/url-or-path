@@ -18,14 +18,15 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node_version:
+          - "22"
           - "20"
-          - "18"
         # exclude:
         #   - os: "macos-latest"
         #     node_version: "12"
-
     name: Node.js ${{ matrix.node_version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    env:
+      YARN_ENABLE_IMMUTABLE_INSTALLS: false
     # needs: [build]
     steps:
       - name: Checkout
@@ -48,28 +49,18 @@ jobs:
       - name: Run Test
         run: yarn test-coverage
 
-      - name: Upload Coverage
-        uses: coverallsapp/github-action@master
-        if: success()
-        continue-on-error: true
+      - uses: codecov/codecov-action@v4
         with:
-          github-token: ${{ secrets.github_token }}
-          parallel: true
-
-  coverage:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Sending webhook to Coveralls
-        uses: coverallsapp/github-action@master
-        continue-on-error: true
-        with:
-          github-token: ${{ secrets.github_token }}
-          parallel-finished: true
+          fail_ci_if_error: true
+          disable_search: true
+          files: coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    env:
+      YARN_ENABLE_IMMUTABLE_INSTALLS: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -86,6 +77,8 @@ jobs:
   # build:
   #   name: Build
   #   runs-on: ubuntu-latest
+  #   env:
+  #     YARN_ENABLE_IMMUTABLE_INSTALLS: false
   #   steps:
   #     - name: Checkout
   #       uses: actions/checkout@v4

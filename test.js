@@ -1,6 +1,6 @@
-import url from 'node:url'
 import path from 'node:path'
 import process from 'node:process'
+import url from 'node:url'
 import test from 'ava'
 import * as urlOrPath from './index.js'
 
@@ -13,6 +13,7 @@ const inputs = [fileUrl, fileUrlString, filePath]
 test('Should accept both URL, url and path string', (t) => {
   for (const value of inputs) {
     t.is(urlOrPath.toPath(value), filePath)
+    t.is(urlOrPath.toAbsolutePath(value), filePath)
     t.deepEqual(urlOrPath.toUrl(value), fileUrl)
   }
 
