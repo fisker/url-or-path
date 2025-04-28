@@ -47,11 +47,9 @@ const toPath = (urlOrPath) =>
 @returns {(Input extends UrlOrPath ? string : Input)}
 */
 const toAbsolutePath = (urlOrPath) =>
-  isUrl(urlOrPath)
-    ? url.fileURLToPath(urlOrPath)
+  urlOrPath
+    ? path.resolve(isUrl(urlOrPath) ? url.fileURLToPath(urlOrPath) : urlOrPath)
     : urlOrPath
-      ? path.resolve(urlOrPath)
-      : urlOrPath
 
 const addSlash = (url) =>
   url && !url.href.endsWith('/') ? new URL(`${url.href}/`) : url

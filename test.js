@@ -73,6 +73,37 @@ test('toDirectory()', (t) => {
   }
 })
 
+test('toAbsolutePath()', (t) => {
+  const expected = path.resolve('foo')
+  const directories = [
+    'foo',
+    'foo/',
+    'foo///',
+    path.resolve('foo'),
+    ...[
+      new URL('./foo', import.meta.url),
+      new URL('./foo/', import.meta.url),
+      new URL('./foo\\', import.meta.url),
+      url.pathToFileURL(path.resolve('foo')),
+    ].flatMap((url) => [url, url.href]),
+  ]
+
+  if (path.sep === '\\') {
+    directories.push('foo\\')
+  }
+
+  // It should not add trailing slash, otherwise it will break `iterate-directory-up`
+  t.is(expected.slice(-3), 'foo')
+
+  for (const directory of directories) {
+    t.is(
+      urlOrPath.toAbsolutePath(directory),
+      expected,
+      `Unexpected URL for '${directory}'`,
+    )
+  }
+})
+
 test('utils', (t) => {
   t.is(urlOrPath.isUrl(new URL('file:///path/to/url')), true)
   t.is(urlOrPath.isUrl('file:///path/to/url'), true)
