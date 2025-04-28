@@ -4,7 +4,6 @@
   ],
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": true,
     "declaration": true,
     "declarationMap": false,
     "noEmit": true

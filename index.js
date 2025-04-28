@@ -8,6 +8,7 @@ const URL_STRING_PREFIX = 'file:'
 @typedef {`${UrlStringPrefix}${string}`} UrlString
 @typedef {URL | UrlString} UrlOrUrlString
 @typedef {URL | string} UrlOrPath
+@typedef {UrlOrPath | undefined} OptionalUrlOrPath
 */
 
 /** @type {(value: unknown) => value is URL} */
@@ -18,32 +19,48 @@ const isUrlString = (value) =>
 /** @type {(urlOrPath: unknown) => urlOrPath is UrlOrUrlString} */
 const isUrl = (urlOrPath) => isUrlInstance(urlOrPath) || isUrlString(urlOrPath)
 
-/** @type {(urlOrPath: UrlOrPath) => URL} */
-const toUrl = (urlOrPath) => {
-  if (isUrlInstance(urlOrPath)) {
-    return urlOrPath
-  }
+/**
+@template {OptionalUrlOrPath} [Input = UrlOrPath]
+@param {Input} urlOrPath
+@returns {(Input extends UrlOrPath ? URL : Input)}
+*/
+const toUrl = (urlOrPath) =>
+  isUrlInstance(urlOrPath)
+    ? urlOrPath
+    : isUrlString(urlOrPath)
+      ? new URL(urlOrPath)
+      : urlOrPath
+        ? url.pathToFileURL(urlOrPath)
+        : urlOrPath
 
-  if (isUrlString(urlOrPath)) {
-    return new URL(urlOrPath)
-  }
-
-  return url.pathToFileURL(urlOrPath)
-}
-
-/** @type {(urlOrPath: UrlOrPath) => string} */
+/**
+@template {OptionalUrlOrPath} [Input = UrlOrPath]
+@param {Input} urlOrPath
+@returns {(Input extends UrlOrPath ? string : Input)}
+*/
 const toPath = (urlOrPath) =>
   isUrl(urlOrPath) ? url.fileURLToPath(urlOrPath) : urlOrPath
 
-/** @type {(urlOrPath: UrlOrPath) => string} */
+/**
+@template {OptionalUrlOrPath} [Input = UrlOrPath]
+@param {Input} urlOrPath
+@returns {(Input extends UrlOrPath ? string : Input)}
+*/
 const toAbsolutePath = (urlOrPath) =>
-  path.resolve(isUrl(urlOrPath) ? url.fileURLToPath(urlOrPath) : urlOrPath)
+  isUrl(urlOrPath)
+    ? url.fileURLToPath(urlOrPath)
+    : urlOrPath
+      ? path.resolve(urlOrPath)
+      : urlOrPath
 
-/** @type {(url: URL) => URL} */
 const addSlash = (url) =>
-  url.href.endsWith('/') ? url : new URL(`${url.href}/`)
+  url && !url.href.endsWith('/') ? new URL(`${url.href}/`) : url
 
-/** @type {(urlOrPath: UrlOrPath) => URL} */
+/**
+@template {OptionalUrlOrPath} [Input = UrlOrPath]
+@param {Input} urlOrPath
+@returns {(Input extends UrlOrPath ? URL : Input)}
+*/
 const toDirectory = (urlOrPath) => addSlash(toUrl(urlOrPath))
 
 export {
