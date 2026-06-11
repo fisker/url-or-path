@@ -64,10 +64,10 @@ jobs:
       YARN_ENABLE_IMMUTABLE_INSTALLS: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
 
       - name: Install Dependencies
         run: yarn
@@ -82,10 +82,10 @@ jobs:
   #     YARN_ENABLE_IMMUTABLE_INSTALLS: false
   #   steps:
   #     - name: Checkout
-  #       uses: actions/checkout@v4
+  #       uses: actions/checkout@v6
 
   #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
+  #       uses: actions/setup-node@v6
 
   #     - name: Install Dependencies
   #       run: yarn
@@ -94,7 +94,7 @@ jobs:
   #       run: yarn build
 
   #     - name: Upload Artifact
-  #       uses: actions/upload-artifact@v4
+  #       uses: actions/upload-artifact@v6
   #       with:
   #         name: dist
   #         path: dist
