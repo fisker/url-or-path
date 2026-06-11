@@ -28,6 +28,11 @@
     "clean:dist": "del-cli dist",
     "dist": "run-p \"dist:*\"",
     "dist:npm": "release-it",
+    "fix": "run-p --continue-on-error \"fix:*\"",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:markdown": "yarn lint:markdown --fix",
+    "fix:package-json": "sort-package-json \"package.json\" \"packages/*/package.json\"",
+    "fix:prettier": "prettier . --write",
     "lint": "run-p --continue-on-error \"lint:*\"",
     "lint:eslint": "eslint .",
     "lint:markdown": "markdownlint-cli2",
@@ -36,14 +41,9 @@
     "prepare": "husky install",
     "release": "run-s fix build test dist",
     "test": "run-p \"test:*\"",
-    "test-coverage": "c8 yarn test",
     "test:js": "ava",
     "test:types": "yarn build && tsd",
-    "fix": "run-p --continue-on-error \"fix:*\"",
-    "fix:eslint": "yarn lint:eslint --fix",
-    "fix:markdown": "yarn lint:markdown --fix",
-    "fix:prettier": "prettier . --write",
-    "fix:package-json": "sort-package-json \"package.json\" \"packages/*/package.json\""
+    "test-coverage": "c8 yarn test"
   },
   "ava": {
     "verbose": true
@@ -73,9 +73,9 @@
     "tsd": "0.33.0",
     "typescript": "6.0.3"
   },
+  "packageManager": "yarn@4.16.0",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "packageManager": "yarn@4.16.0"
+  }
 }
