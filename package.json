@@ -38,7 +38,6 @@
     "lint:markdown": "markdownlint-cli2",
     "lint:package-json": "yarn run fix:package-json --check",
     "lint:prettier": "prettier . --check",
-    "prepare": "husky install",
     "release": "run-s fix build test dist",
     "test": "run-p \"test:*\"",
     "test:js": "ava",
@@ -57,7 +56,6 @@
   "devDependencies": {
     "@fisker/eslint-config": "16.0.0",
     "@fisker/eslint-config-ava": "5.0.0",
-    "@fisker/husky-config": "5.0.0",
     "@fisker/markdownlint-cli2-config": "0.1.0",
     "@fisker/prettier-config": "6.0.0",
     "@fisker/release-it-config": "6.0.2",
