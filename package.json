@@ -59,7 +59,7 @@
     "@fisker/markdownlint-cli2-config": "0.1.0",
     "@fisker/prettier-config": "6.0.0",
     "@fisker/release-it-config": "6.0.2",
-    "@types/node": "25.9.3",
+    "@types/node": "26.0.0",
     "ava": "8.0.1",
     "c8": "11.0.0",
     "del-cli": "7.0.0",
